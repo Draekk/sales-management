@@ -31,10 +31,10 @@ public class Client {
     @Basic
     private String name;
 
-    @OneToMany(mappedBy = "client_id", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL)
     List<Address> addresses;
 
-    @OneToMany(mappedBy = "client_id", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL)
     List<Sale> sales;
 
     public Client() {
