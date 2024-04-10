@@ -30,19 +30,18 @@ public class Client {
 
     @Basic
     private String name;
-
-    @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL)
-    List<Address> addresses;
+    private String region;
 
     @OneToMany(mappedBy = "client", orphanRemoval = true, cascade = CascadeType.ALL)
     List<Sale> sales;
 
     public Client() {
-        addresses = new ArrayList<>();
         sales = new ArrayList<>();
     }
 
-    public Client(String name) {
+    public Client(String name, String region) {
+        sales = new ArrayList<>();
         this.name = name;
+        this.region = region;
     }
 }
