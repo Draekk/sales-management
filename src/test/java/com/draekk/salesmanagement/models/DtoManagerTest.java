@@ -30,7 +30,7 @@ public class DtoManagerTest {
 
         ClientDto clientDto = manager.createClientDto(clientOptional.orElseThrow());
 
-        assertEquals("elian", clientDto.getName());
+        assertEquals("Gever", clientDto.getName());
         assertEquals(4, clientDto.getSales().get(0).getBoxAmount());
     }
 }

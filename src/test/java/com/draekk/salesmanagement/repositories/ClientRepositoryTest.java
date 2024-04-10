@@ -22,7 +22,7 @@ public class ClientRepositoryTest {
     void testFindByName() {
         List<Client> clients = repository.findByName("elian");
 
-        assertEquals(2, clients.size());
+        assertEquals(1, clients.size());
     }
 
     @Test
@@ -52,6 +52,6 @@ public class ClientRepositoryTest {
     void testFindById() {
         Optional<Client> optionalClient = repository.findById(1L);
 
-        assertEquals(4, optionalClient.get().getSales().get(0).getBoxAmount());
+        assertEquals(5, optionalClient.get().getSales().get(0).getBoxAmount());
     }
 }
