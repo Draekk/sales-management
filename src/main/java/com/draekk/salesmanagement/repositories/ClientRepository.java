@@ -13,4 +13,10 @@ public interface ClientRepository extends CrudRepository<Client, Long> {
 
     @Query("select c from Client c where c.name like %?1%")
     List<Client> findByNameContaining(String name);
+
+    List<Client> findByRegion(String region);
+
+    @Query("select c from Client c where c.region like %?1%")
+    List<Client> findByRegionContaining(String region);
+
 }
