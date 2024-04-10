@@ -1,0 +1,15 @@
+package com.draekk.salesmanagement.services;
+
+import java.util.List;
+import java.util.Map;
+
+import com.draekk.salesmanagement.models.dtos.SaleDto;
+
+public interface SaleService {
+
+    SaleDto findSaleById(Long id);
+    List<SaleDto> findSalesByDate(Map<String, Object> json);
+    List<SaleDto> findSalesByMonth(Map<String, Object> json);
+    List<SaleDto> findSalesByYear(Map<String, Object> json);
+    List<SaleDto> findAllSales();
+}
