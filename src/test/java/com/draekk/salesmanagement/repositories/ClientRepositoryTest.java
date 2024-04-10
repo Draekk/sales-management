@@ -1,8 +1,6 @@
 package com.draekk.salesmanagement.repositories;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.h
 
 import java.util.List;
 import java.util.Optional;
