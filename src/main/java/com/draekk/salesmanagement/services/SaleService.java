@@ -9,7 +9,7 @@ public interface SaleService {
 
     SaleDto findSaleById(Long id);
     List<SaleDto> findSalesByDate(Map<String, Object> json);
-    List<SaleDto> findSalesByMonth(Map<String, Object> json);
+    List<SaleDto> findSalesByMonth(Map<String, Integer> json);
     List<SaleDto> findSalesByYear(Map<String, Object> json);
     List<SaleDto> findAllSales();
 }
