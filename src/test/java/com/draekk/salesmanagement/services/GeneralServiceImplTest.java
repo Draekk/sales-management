@@ -2,6 +2,7 @@ package com.draekk.salesmanagement.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.draekk.salesmanagement.models.dtos.ClientDto;
+import com.draekk.salesmanagement.models.dtos.ResponseDto;
 import com.draekk.salesmanagement.models.dtos.SaleDto;
 
 @SpringBootTest
@@ -42,17 +45,24 @@ public class GeneralServiceImplTest {
 
     @Test
     void testFindCliendById() {
+        ResponseDto<ClientDto> response = service.findCliendById(3L);
 
+        assertEquals(3, response.getData().getId());
+        assertEquals("gever", response.getData().getName());
     }
 
     @Test
     void testFindClientsByName() {
+        ResponseDto<List<ClientDto>> response = service.findClientsByName(Collections.singletonMap("name", "elian"));
 
+        assertEquals(2, response.getData().size());
     }
 
     @Test
     void testFindClientsByNameContaining() {
-
+        ResponseDto<List<ClientDto>> response = service.findClientsByNameContaining(Collections.singletonMap("name", "eli"));
+        
+        assertEquals(2, response.getData().size());
     }
 
     @Test
