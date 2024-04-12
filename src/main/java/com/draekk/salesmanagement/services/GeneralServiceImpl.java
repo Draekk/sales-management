@@ -184,9 +184,19 @@ public class GeneralServiceImpl implements ClientService, SaleService {
     }
 
     @Override
+    @Transactional
     public ResponseDto<ClientDto> createClient(Map<String, Object> json) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createClient'");
+        try {
+            Client client = new Client(json.get("name").toString(), json.get("region").toString());
+            ResponseDto<ClientDto> response = new ResponseDto<>();
+            response.setMessage(ResponseMessage.CREATED.getMessage());
+            response.setStatus(HttpStatus.CREATED.value());
+            response.setSuccess(true);
+            response.setData(manager.createClientDto(clientRepository.save(client)));
+            return response;
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_CREATED.getMessage(), HttpStatus.BAD_REQUEST.value());
+        }
     }
 
     @Override

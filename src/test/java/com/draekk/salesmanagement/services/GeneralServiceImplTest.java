@@ -23,7 +23,13 @@ public class GeneralServiceImplTest {
 
     @Test
     void testCreateClient() {
+        Map<String, Object> json = new HashMap<>();
+        json.put("name", "ubaldo");
+        json.put("region", "bejuma");
 
+        ResponseDto<ClientDto> response = service.createClient(json);
+
+        assertEquals(6, response.getData().getId());
     }
 
     @Test
