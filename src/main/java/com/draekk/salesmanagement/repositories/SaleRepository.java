@@ -13,5 +13,8 @@ public interface SaleRepository extends CrudRepository<Sale, Long> {
     List<Sale> findByDate(Date date);
 
     @Query("select s from Sale s where month(s.date) = ?1 and year(s.date) = ?2")
-    List<Sale> findSaleByMonth(int month, int year);
+    List<Sale> findSalesByMonth(int month, int year);
+
+    @Query("select s from Sale s where year(s.date) = ?1")
+    List<Sale> findSalesByYear(int year);
 }

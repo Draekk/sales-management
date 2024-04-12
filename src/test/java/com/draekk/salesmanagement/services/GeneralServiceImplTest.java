@@ -35,7 +35,9 @@ public class GeneralServiceImplTest {
 
     @Test
     void testFindAllSales() {
+        List<SaleDto> sales = service.findAllSales();
 
+        assertEquals(8, sales.size());
     }
 
     @Test
@@ -94,7 +96,9 @@ public class GeneralServiceImplTest {
 
     @Test
     void testFindSalesByYear() {
+        List<SaleDto> sales = service.findSalesByYear(2023);
 
+        assertEquals(7, sales.get(0).getId());
     }
 
     @Test

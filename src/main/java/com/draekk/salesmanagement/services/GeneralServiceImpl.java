@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.draekk.salesmanagement.entities.Sale;
 import com.draekk.salesmanagement.models.DtoManager;
 import com.draekk.salesmanagement.models.dtos.ClientDto;
 import com.draekk.salesmanagement.models.dtos.ResponseDto;
@@ -52,22 +53,29 @@ public class GeneralServiceImpl implements ClientService, SaleService {
             int month = json.get("month");
             int year = json.get("year");
 
-            return saleRepository.findSaleByMonth(month, year).stream().map(manager::createSaleDto).toList();
+            return saleRepository.findSalesByMonth(month, year).stream().map(manager::createSaleDto).toList();
         } catch (Exception e) {
             return Collections.emptyList();
         }
     }
 
     @Override
-    public List<SaleDto> findSalesByYear(Map<String, Object> json) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findSalesByYear'");
+    public List<SaleDto> findSalesByYear(Integer year) {
+        try {
+            return saleRepository.findSalesByYear(year).stream().map(manager::createSaleDto).toList();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public List<SaleDto> findAllSales() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllSales'");
+        try {
+            List<Sale> sales = (List<Sale>) saleRepository.findAll();
+            return sales.stream().map(manager::createSaleDto).toList();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 
     @Override
