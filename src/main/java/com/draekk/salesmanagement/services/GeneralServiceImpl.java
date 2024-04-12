@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.draekk.salesmanagement.entities.Client;
 import com.draekk.salesmanagement.entities.Sale;
 import com.draekk.salesmanagement.models.DtoManager;
 import com.draekk.salesmanagement.models.ResponseMessage;
@@ -135,21 +136,51 @@ public class GeneralServiceImpl implements ClientService, SaleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseDto<List<ClientDto>> findClientsByRegion(Map<String, String> json) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findClientsByRegion'");
+        try {
+            String region = json.get("region");
+            ResponseDto<List<ClientDto>> response = new ResponseDto<>();
+            response.setMessage(ResponseMessage.FOUND.getMessage());
+            response.setStatus(HttpStatus.OK.value());
+            response.setSuccess(true);
+            response.setData(clientRepository.findByRegion(region).stream().map(manager::createClientDto).toList());
+            return response;
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseDto<List<ClientDto>> findClientsByRegionContaining(Map<String, String> json) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findClientsByRegionContaining'");
+        try {
+            String region = json.get("region");
+            ResponseDto<List<ClientDto>> response = new ResponseDto<>();
+            response.setMessage(ResponseMessage.FOUND.getMessage());
+            response.setStatus(HttpStatus.OK.value());
+            response.setSuccess(true);
+            response.setData(clientRepository.findByRegionContaining(region).stream().map(manager::createClientDto).toList());
+            return response;
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseDto<List<ClientDto>> findAllClients() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllClients'");
+        try {
+            List<Client> clients = (List<Client>)clientRepository.findAll();
+            ResponseDto<List<ClientDto>> response = new ResponseDto<>();
+            response.setMessage(ResponseMessage.FOUND.getMessage());
+            response.setStatus(HttpStatus.OK.value());
+            response.setSuccess(true);
+            response.setData(clients.stream().map(manager::createClientDto).toList());
+            return response;
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
     }
 
     @Override

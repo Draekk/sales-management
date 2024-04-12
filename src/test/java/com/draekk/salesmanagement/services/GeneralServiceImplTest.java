@@ -33,7 +33,9 @@ public class GeneralServiceImplTest {
 
     @Test
     void testFindAllClients() {
+        ResponseDto<List<ClientDto>> response = service.findAllClients();
 
+        assertEquals(4, response.getData().size());
     }
 
     @Test
@@ -64,14 +66,20 @@ public class GeneralServiceImplTest {
         
         assertEquals(2, response.getData().size());
     }
-
+    
     @Test
     void testFindClientsByRegion() {
-
+        ResponseDto<List<ClientDto>> response = service.findClientsByRegion(Collections.singletonMap("region", "carabobo"));
+        
+        assertEquals(2, response.getData().size());
+        
     }
-
+    
     @Test
     void testFindClientsByRegionContaining() {
+        ResponseDto<List<ClientDto>> response = service.findClientsByRegionContaining(Collections.singletonMap("region", "rabo"));
+        
+        assertEquals(2, response.getData().size());
 
     }
 
