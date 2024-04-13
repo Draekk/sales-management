@@ -9,7 +9,6 @@ import com.draekk.salesmanagement.models.dtos.ResponseDto;
 public interface ClientService {
 
     ResponseDto<ClientDto> findCliendById(Long id);
-    ResponseDto<List<ClientDto>> findClientsByName(Map<String, String> json);
     ResponseDto<List<ClientDto>> findClientsByNameContaining(Map<String, String> json);
     ResponseDto<List<ClientDto>> findClientsByRegion(Map<String, String> json);
     ResponseDto<List<ClientDto>> findClientsByRegionContaining(Map<String, String> json);

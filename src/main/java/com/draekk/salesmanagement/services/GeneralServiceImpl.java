@@ -201,22 +201,6 @@ public class GeneralServiceImpl implements ClientService, SaleService {
 
     @Override
     @Transactional(readOnly = true)
-    public ResponseDto<List<ClientDto>> findClientsByName(Map<String, String> json) {
-        try {
-            String name = json.get("name");
-            ResponseDto<List<ClientDto>> response = new ResponseDto<>();
-            response.setMessage(ResponseMessage.FOUND.getMessage());
-            response.setStatus(HttpStatus.OK.value());
-            response.setSuccess(true);;
-            response.setData(clientRepository.findByName(name).stream().map(manager::createClientDto).toList());
-            return response;
-        } catch (Exception e) {
-            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
-        }
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public ResponseDto<List<ClientDto>> findClientsByNameContaining(Map<String, String> json) {
         try {
             String name = json.get("name");
@@ -225,6 +209,10 @@ public class GeneralServiceImpl implements ClientService, SaleService {
             response.setStatus(HttpStatus.OK.value());
             response.setSuccess(true);
             response.setData(clientRepository.findByNameContaining(name).stream().map(manager::createClientDto).toList());
+            
+            if(response.getData().isEmpty()){
+                response.setMessage(ResponseMessage.NOT_FOUND.getMessage());
+            }
             return response;
         } catch (Exception e) {
             return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
