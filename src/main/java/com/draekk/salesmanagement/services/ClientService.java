@@ -16,5 +16,5 @@ public interface ClientService {
     ResponseDto<List<ClientDto>> findAllClients();
     ResponseDto<ClientDto> createClient(Map<String, Object> json);
     ResponseDto<ClientDto> updateClient(Map<String, Object> json);
-    ResponseDto<ClientDto> deleteClient(Map<String, Object> json);
+    ResponseDto<ClientDto> deleteClientById(Long id);
 }

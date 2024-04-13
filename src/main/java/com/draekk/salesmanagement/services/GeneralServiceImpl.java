@@ -222,9 +222,23 @@ public class GeneralServiceImpl implements ClientService, SaleService {
     }
 
     @Override
-    public ResponseDto<ClientDto> deleteClient(Map<String, Object> json) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteClient'");
+    @Transactional
+    public ResponseDto<ClientDto> deleteClientById(Long id) {
+        try {
+            ResponseDto<ClientDto> response = new ResponseDto<>();
+            if(clientRepository.findById(id).isPresent()) {
+                clientRepository.deleteById(id);
+                response.setMessage(ResponseMessage.DELETED.getMessage());
+                response.setStatus(HttpStatus.ACCEPTED.value());
+                response.setSuccess(true);
+            } else {
+                response.setMessage(ResponseMessage.NOT_FOUND.getMessage());
+                response.setStatus(HttpStatus.NOT_FOUND.value());
+            }
+            return response;
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_DELETED.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
     }
 
 

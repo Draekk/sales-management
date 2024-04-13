@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.draekk.salesmanagement.models.ResponseMessage;
 import com.draekk.salesmanagement.models.dtos.ClientDto;
 import com.draekk.salesmanagement.models.dtos.ResponseDto;
 import com.draekk.salesmanagement.models.dtos.SaleDto;
@@ -34,7 +35,9 @@ public class GeneralServiceImplTest {
 
     @Test
     void testDeleteClient() {
+        ResponseDto<ClientDto> response = service.deleteClientById(2L);
 
+        assertEquals(ResponseMessage.DELETED.getMessage(), response.getMessage());
     }
 
     @Test
