@@ -2,7 +2,6 @@ package com.draekk.salesmanagement.services;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -38,53 +37,73 @@ public class GeneralServiceImpl implements ClientService, SaleService {
 
     @Override
     @Transactional(readOnly = true)
-    public SaleDto findSaleById(Long id) {
-        return manager.createSaleDto(saleRepository.findById(id).orElse(null));
+    public ResponseDto<SaleDto> findSaleById(Long id) {
+        try {
+            ResponseDto<SaleDto> response = new ResponseDto<>();
+            manager.createFoundResponse(response);
+            response.setData(manager.createSaleDto(saleRepository.findById(id).orElseThrow()));
+            return response;
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<SaleDto> findSalesByDate(Map<String, Object> json) {
+    public ResponseDto<List<SaleDto>> findSalesByDate(Map<String, Object> json) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date date = format.parse(json.get("date").toString());
-            return saleRepository.findByDate(date).stream().map(manager::createSaleDto).toList();
+            ResponseDto<List<SaleDto>> response = new ResponseDto<>();
+            manager.createFoundResponse(response);
+            response.setData(saleRepository.findByDate(date).stream().map(manager::createSaleDto).toList());
+            return response;
         } catch (ParseException e) {
-            return null;
+            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<SaleDto> findSalesByMonth(Map<String, Integer> json) {
+    public ResponseDto<List<SaleDto>> findSalesByMonth(Map<String, Integer> json) {
         try {
+            ResponseDto<List<SaleDto>> response = new ResponseDto<>();
             int month = json.get("month");
             int year = json.get("year");
 
-            return saleRepository.findSalesByMonth(month, year).stream().map(manager::createSaleDto).toList();
+            manager.createFoundResponse(response);
+            response.setData(saleRepository.findSalesByMonth(month, year).stream().map(manager::createSaleDto).toList());
+            return response;
         } catch (Exception e) {
-            return Collections.emptyList();
+            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
-
+    
     @Override
     @Transactional(readOnly = true)
-    public List<SaleDto> findSalesByYear(Integer year) {
+    public ResponseDto<List<SaleDto>> findSalesByYear(Integer year) {
         try {
-            return saleRepository.findSalesByYear(year).stream().map(manager::createSaleDto).toList();
+            ResponseDto<List<SaleDto>> response = new ResponseDto<>();
+            manager.createFoundResponse(response);
+            response.setData(saleRepository.findSalesByYear(year).stream().map(manager::createSaleDto).toList());
+            return response;
         } catch (Exception e) {
-            return Collections.emptyList();
+            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
-
+    
     @Override
     @Transactional(readOnly = true)
-    public List<SaleDto> findAllSales() {
+    public ResponseDto<List<SaleDto>> findAllSales() {
         try {
             List<Sale> sales = (List<Sale>) saleRepository.findAll();
-            return sales.stream().map(manager::createSaleDto).toList();
+            
+            ResponseDto<List<SaleDto>> response = new ResponseDto<>();
+            manager.createFoundResponse(response);
+            response.setData(sales.stream().map(manager::createSaleDto).toList());
+            return response;
         } catch (Exception e) {
-            return Collections.emptyList();
+            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
 
