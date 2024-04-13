@@ -138,4 +138,16 @@ public class GeneralServiceImplTest {
         ResponseDto<ClientDto> response = service.updateClient(json);
         assertEquals("gever", response.getData().getName());
     }
+
+    @Test
+    void testUpdateSale() {
+        Map<String, Object> json = new HashMap<>();
+        json.put("id", 2);
+        json.put("box_amount", 4);
+        json.put("date", "2024-04-12");
+
+        ResponseDto<SaleDto> response = service.updateSale(json);
+
+        assertEquals(4, response.getData().getBoxAmount());
+    }
 }

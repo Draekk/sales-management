@@ -3,6 +3,7 @@ package com.draekk.salesmanagement.services;
 import java.util.List;
 import java.util.Map;
 
+import com.draekk.salesmanagement.models.dtos.ResponseDto;
 import com.draekk.salesmanagement.models.dtos.SaleDto;
 
 public interface SaleService {
@@ -12,4 +13,6 @@ public interface SaleService {
     List<SaleDto> findSalesByMonth(Map<String, Integer> json);
     List<SaleDto> findSalesByYear(Integer year);
     List<SaleDto> findAllSales();
+    ResponseDto<SaleDto> updateSale(Map<String, Object> json);
+    void deleteSaleById(Long id);
 }

@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,6 +86,40 @@ public class GeneralServiceImpl implements ClientService, SaleService {
         } catch (Exception e) {
             return Collections.emptyList();
         }
+    }
+
+    @Override
+    @Transactional
+    public ResponseDto<SaleDto> updateSale(Map<String, Object> json) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            ResponseDto<SaleDto> response = new ResponseDto<>();
+
+            Long id = Long.parseLong(json.get("id").toString());
+            Integer boxAmount = Integer.parseInt(json.get("box_amount").toString());
+            Date date = format.parse(json.get("date").toString());
+
+            Optional<Sale> saleOptional = saleRepository.findById(id);
+            if(saleOptional.isPresent()) {
+                saleOptional.get().setBoxAmount(boxAmount);
+                saleOptional.get().setDate(date);
+                response.setData(manager.createSaleDto(saleRepository.save(saleOptional.get())));
+                response.setMessage(ResponseMessage.UPDATED.getMessage());
+                response.setStatus(HttpStatus.ACCEPTED.value());
+                response.setSuccess(true);
+                return response;
+            } else {
+                return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND.value());
+            }
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_DELETED.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+    }
+
+    @Override
+    public void deleteSaleById(Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteSaleById'");
     }
 
     @Override
@@ -241,5 +276,5 @@ public class GeneralServiceImpl implements ClientService, SaleService {
         }
     }
 
-
+    
 }
