@@ -13,6 +13,7 @@ public interface SaleService {
     List<SaleDto> findSalesByMonth(Map<String, Integer> json);
     List<SaleDto> findSalesByYear(Integer year);
     List<SaleDto> findAllSales();
+    ResponseDto<SaleDto> createSale(Map<String, Object> json);
     ResponseDto<SaleDto> updateSale(Map<String, Object> json);
     ResponseDto<SaleDto> deleteSaleById(Long id);
 }

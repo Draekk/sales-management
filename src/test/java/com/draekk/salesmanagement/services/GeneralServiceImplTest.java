@@ -157,4 +157,16 @@ public class GeneralServiceImplTest {
 
         assertEquals(ResponseMessage.DELETED.getMessage(), response.getMessage());
     }
+
+    @Test
+    void testCreateSale() {
+        Map<String, Object> json = new HashMap<>();
+        json.put("box_amount", 6);
+        json.put("date", "2024-04-16");
+        json.put("client_id", 3);
+
+        ResponseDto<SaleDto> response = service.createSale(json);
+
+        assertEquals(6, response.getData().getBoxAmount());
+    }
 }

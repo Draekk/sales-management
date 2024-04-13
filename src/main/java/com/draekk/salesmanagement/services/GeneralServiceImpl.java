@@ -90,6 +90,33 @@ public class GeneralServiceImpl implements ClientService, SaleService {
 
     @Override
     @Transactional
+    public ResponseDto<SaleDto> createSale(Map<String, Object> json) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            ResponseDto<SaleDto> response = new ResponseDto<>();
+
+            int boxAmount = Integer.parseInt(json.get("box_amount").toString());
+            Date date = format.parse(json.get("date").toString());
+            Long cliendId = Long.parseLong(json.get("client_id").toString());
+
+            Optional<Client> clientOptional = clientRepository.findById(cliendId);
+            if(clientOptional.isPresent()) {
+                Sale newSale = new Sale(null, boxAmount, date, clientOptional.get());
+                response.setData(manager.createSaleDto(saleRepository.save(newSale)));
+                response.setMessage(ResponseMessage.CREATED.getMessage());
+                response.setStatus(HttpStatus.OK.value());
+                response.setSuccess(true);
+                return response;
+            } else {
+                return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.BAD_REQUEST.value());
+            }
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_CREATED.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
+    }
+
+    @Override
+    @Transactional
     public ResponseDto<SaleDto> updateSale(Map<String, Object> json) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -296,6 +323,4 @@ public class GeneralServiceImpl implements ClientService, SaleService {
             return new ResponseDto<>(ResponseMessage.NOT_DELETED.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
-
-    
 }
