@@ -20,8 +20,6 @@ public class ClientRestController {
     @Autowired
     ClientService service;
 
-    // #region Clients
-
     @GetMapping("/find/{id}")
     public ResponseEntity<ResponseDto<?>> findClientById(@PathVariable Long id) {
         ResponseDto<?> response = service.findCliendById(id);
@@ -33,5 +31,10 @@ public class ClientRestController {
         ResponseDto<?> response = service.findClientsByNameContaining(json);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
-    // #endregion
+    
+    @GetMapping("/find/region")
+    public ResponseEntity<ResponseDto<?>> findClientsByRegion(@RequestBody Map<String, String> json) {
+        ResponseDto<?> response = service.findClientsByRegionContaining(json);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
 }
