@@ -37,4 +37,10 @@ public class ClientRestController {
         ResponseDto<?> response = service.findClientsByRegionContaining(json);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
+
+    @GetMapping("/find/all")
+    public ResponseEntity<ResponseDto<?>> findAllClients() {
+        ResponseDto<?> response = service.findAllClients();
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
 }
