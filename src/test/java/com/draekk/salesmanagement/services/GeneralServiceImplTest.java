@@ -132,11 +132,11 @@ public class GeneralServiceImplTest {
     void testUpdateClient() {
         Map<String, Object> json = new HashMap<>();
         json.put("id", 1L);
-        json.put("name", "gever");
+        json.put("name", "nicolas");
         json.put("region", "curacavi");
 
         ResponseDto<ClientDto> response = service.updateClient(json);
-        assertEquals("gever", response.getData().getName());
+        assertEquals("nicolas", response.getData().getName());
     }
 
     @Test
@@ -149,5 +149,12 @@ public class GeneralServiceImplTest {
         ResponseDto<SaleDto> response = service.updateSale(json);
 
         assertEquals(4, response.getData().getBoxAmount());
+    }
+
+    @Test
+    void testDeleteSaleById() {
+        ResponseDto<SaleDto> response = service.deleteSaleById(4L);
+
+        assertEquals(ResponseMessage.DELETED.getMessage(), response.getMessage());
     }
 }

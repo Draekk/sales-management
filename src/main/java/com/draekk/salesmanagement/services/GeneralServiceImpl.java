@@ -117,9 +117,24 @@ public class GeneralServiceImpl implements ClientService, SaleService {
     }
 
     @Override
-    public void deleteSaleById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteSaleById'");
+    @Transactional
+    public ResponseDto<SaleDto> deleteSaleById(Long id) {
+        try {
+            ResponseDto<SaleDto> response = new ResponseDto<>();
+
+            Optional<Sale> saleOptional = saleRepository.findById(id);
+            if(saleOptional.isPresent()) {
+                saleRepository.deleteById(id);
+                response.setMessage(ResponseMessage.DELETED.getMessage());
+                response.setStatus(HttpStatus.ACCEPTED.value());
+                response.setSuccess(true);
+                return response;
+            } else {
+                return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND.value());
+            }
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_DELETED.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+        }
     }
 
     @Override
@@ -242,17 +257,23 @@ public class GeneralServiceImpl implements ClientService, SaleService {
             String name = json.get("name").toString();
             String region = json.get("region").toString();
 
-            Client client = new Client(name, region);
-            client.setId(id);
+            Optional<Client> clientOptional = clientRepository.findById(id);
+            if(clientOptional.isPresent()) {
+                clientOptional.get().setName(name);
+                clientOptional.get().setRegion(region);
 
-            ResponseDto<ClientDto> response = new ResponseDto<>();
-            response.setMessage(ResponseMessage.UPDATED.getMessage());
-            response.setStatus(HttpStatus.OK.value());
-            response.setSuccess(true);
-            response.setData(manager.createClientDto(clientRepository.save(client)));
-            return response;
+                ResponseDto<ClientDto> response = new ResponseDto<>();
+                response.setData(manager.createClientDto(clientRepository.save(clientOptional.get())));
+                response.setMessage(ResponseMessage.UPDATED.getMessage());
+                response.setStatus(HttpStatus.OK.value());
+                response.setSuccess(true);
+                return response;
+            } else {
+                return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND.value());
+            }
+
         } catch (Exception e) {
-            return new ResponseDto<>(ResponseMessage.NOT_UPDATED.getMessage(), HttpStatus.BAD_REQUEST.value());
+            return new ResponseDto<>(ResponseMessage.NOT_UPDATED.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
 

@@ -14,5 +14,5 @@ public interface SaleService {
     List<SaleDto> findSalesByYear(Integer year);
     List<SaleDto> findAllSales();
     ResponseDto<SaleDto> updateSale(Map<String, Object> json);
-    void deleteSaleById(Long id);
+    ResponseDto<SaleDto> deleteSaleById(Long id);
 }
