@@ -200,9 +200,25 @@ public class GeneralServiceImpl implements ClientService, SaleService {
     }
 
     @Override
+    @Transactional
     public ResponseDto<ClientDto> updateClient(Map<String, Object> json) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateClient'");
+        try {
+            Long id = Long.parseLong(json.get("id").toString());
+            String name = json.get("name").toString();
+            String region = json.get("region").toString();
+
+            Client client = new Client(name, region);
+            client.setId(id);
+
+            ResponseDto<ClientDto> response = new ResponseDto<>();
+            response.setMessage(ResponseMessage.UPDATED.getMessage());
+            response.setStatus(HttpStatus.OK.value());
+            response.setSuccess(true);
+            response.setData(manager.createClientDto(clientRepository.save(client)));
+            return response;
+        } catch (Exception e) {
+            return new ResponseDto<>(ResponseMessage.NOT_UPDATED.getMessage(), HttpStatus.BAD_REQUEST.value());
+        }
     }
 
     @Override

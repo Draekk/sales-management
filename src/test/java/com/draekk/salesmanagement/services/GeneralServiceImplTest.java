@@ -127,6 +127,12 @@ public class GeneralServiceImplTest {
 
     @Test
     void testUpdateClient() {
+        Map<String, Object> json = new HashMap<>();
+        json.put("id", 1L);
+        json.put("name", "gever");
+        json.put("region", "curacavi");
 
+        ResponseDto<ClientDto> response = service.updateClient(json);
+        assertEquals("gever", response.getData().getName());
     }
 }
