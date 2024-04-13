@@ -11,28 +11,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.draekk.salesmanagement.models.dtos.ResponseDto;
-import com.draekk.salesmanagement.services.GeneralServiceImpl;
+import com.draekk.salesmanagement.services.ClientService;
 
 @RestController
-@RequestMapping("/api")
-public class AppRestController {
+@RequestMapping("/api/client")
+public class ClientRestController {
 
     @Autowired
-    GeneralServiceImpl service;
+    ClientService service;
 
     // #region Clients
 
-    @GetMapping("/client/find/{id}")
+    @GetMapping("/find/{id}")
     public ResponseEntity<ResponseDto<?>> findClientById(@PathVariable Long id) {
-        try {
-            ResponseDto<?> response = service.findCliendById(id);
-            return ResponseEntity.status(response.getStatus()).body(response);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
+        ResponseDto<?> response = service.findCliendById(id);
+        return ResponseEntity.status(response.getStatus()).body(response);
     }
 
-    @GetMapping("/client/find/name")
+    @GetMapping("/find/name")
     public ResponseEntity<ResponseDto<?>> findClientsByName(@RequestBody Map<String, String> json) {
         ResponseDto<?> response = service.findClientsByNameContaining(json);
         return ResponseEntity.status(response.getStatus()).body(response);
