@@ -64,22 +64,6 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional(readOnly = true)
-    public ResponseDto<List<ClientDto>> findClientsByRegion(Map<String, String> json) {
-        try {
-            String region = json.get("region");
-            ResponseDto<List<ClientDto>> response = new ResponseDto<>();
-            response.setMessage(ResponseMessage.FOUND.getMessage());
-            response.setStatus(HttpStatus.OK.value());
-            response.setSuccess(true);
-            response.setData(clientRepository.findByRegion(region).stream().map(manager::createClientDto).toList());
-            return response;
-        } catch (Exception e) {
-            return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
-        }
-    }
-
-    @Override
-    @Transactional(readOnly = true)
     public ResponseDto<List<ClientDto>> findClientsByRegionContaining(Map<String, String> json) {
         try {
             String region = json.get("region");
