@@ -23,7 +23,7 @@ public class ClientRestController {
     @Autowired
     ClientService service;
 
-    @GetMapping("/find/{id}")
+    @GetMapping("/find/id/{id}")
     public ResponseEntity<ResponseDto<?>> findClientById(@PathVariable Long id) {
         ResponseDto<?> response = service.findCliendById(id);
         return ResponseEntity.status(response.getStatus()).body(response);
