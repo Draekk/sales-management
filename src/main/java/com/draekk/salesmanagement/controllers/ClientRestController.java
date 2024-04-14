@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,12 @@ public class ClientRestController {
     @PutMapping("/update")
     public ResponseEntity<ResponseDto<?>> updateClient(@RequestBody Map<String, Object> json) {
         ResponseDto<?> response = service.updateClient(json);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ResponseDto<?>> deleteClient(@PathVariable Long id) {
+        ResponseDto<?> response = service.deleteClientById(id);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
