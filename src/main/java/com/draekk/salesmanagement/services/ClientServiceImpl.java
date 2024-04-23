@@ -96,9 +96,9 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     @Transactional
-    public ResponseDto<ClientDto> createClient(Map<String, Object> json) {
+    public ResponseDto<ClientDto> createClient(Map<String, String> json) {
         try {
-            Client client = new Client(json.get("name").toString(), json.get("region").toString());
+            Client client = new Client(json.get("name"), json.get("region"));
             ResponseDto<ClientDto> response = new ResponseDto<>();
             response.setMessage(ResponseMessage.CREATED.getMessage());
             response.setStatus(HttpStatus.CREATED.value());

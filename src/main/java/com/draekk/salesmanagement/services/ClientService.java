@@ -12,7 +12,7 @@ public interface ClientService {
     ResponseDto<List<ClientDto>> findClientsByNameContaining(Map<String, String> json);
     ResponseDto<List<ClientDto>> findClientsByRegionContaining(Map<String, String> json);
     ResponseDto<List<ClientDto>> findAllClients();
-    ResponseDto<ClientDto> createClient(Map<String, Object> json);
+    ResponseDto<ClientDto> createClient(Map<String, String> json);
     ResponseDto<ClientDto> updateClient(Map<String, Object> json);
     ResponseDto<ClientDto> deleteClientById(Long id);
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,12 @@ public class ClientRestController {
     @GetMapping("/find/all")
     public ResponseEntity<ResponseDto<?>> findAllClients() {
         ResponseDto<?> response = service.findAllClients();
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<ResponseDto<?>> createClient(@RequestBody Map<String, String> json) {
+        ResponseDto<?> response = service.createClient(json);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
