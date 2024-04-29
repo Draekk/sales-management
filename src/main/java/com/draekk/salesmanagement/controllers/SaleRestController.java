@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,12 @@ public class SaleRestController {
     @PutMapping("/update")
     public ResponseEntity<ResponseDto<?>> updateSale(@RequestBody Map<String, Object> json) {
         ResponseDto<?> response = service.updateSale(json);
+        return ResponseEntity.status(response.getStatus()).body(response);
+    }
+    
+    @DeleteMapping("/delete/id/{id}")
+    public ResponseEntity<ResponseDto<?>> deleteSaleById(@PathVariable Long id) {
+        ResponseDto<?> response = service.deleteSaleById(id);
         return ResponseEntity.status(response.getStatus()).body(response);
     }
 }
