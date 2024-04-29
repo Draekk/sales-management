@@ -13,5 +13,5 @@ public class SaleDto {
 
     private Long id;
     private Integer boxAmount;
-    private Date date;
+    private String date;
 }

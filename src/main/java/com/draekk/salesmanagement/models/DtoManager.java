@@ -1,5 +1,7 @@
 package com.draekk.salesmanagement.models;
 
+import java.text.SimpleDateFormat;
+
 import org.springframework.http.HttpStatus;
 
 import com.draekk.salesmanagement.entities.Client;
@@ -12,9 +14,11 @@ public interface DtoManager {
 
     default SaleDto createSaleDto(Sale sale) {
         SaleDto saleDto = new SaleDto();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
         saleDto.setId(sale.getId());
         saleDto.setBoxAmount(sale.getBoxAmount());
-        saleDto.setDate(sale.getDate());
+        saleDto.setDate(format.format(sale.getDate()));
         return saleDto;
     }
 
