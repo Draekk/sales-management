@@ -1,0 +1,17 @@
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\entities\Sale.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\SalesManagementApplication.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\services\SaleService.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\AppConfig.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\repositories\SaleRepository.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\repositories\ClientRepository.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\models\DtoManager.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\entities\Client.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\controllers\SaleRestController.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\controllers\ClientRestController.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\models\dtos\ClientDto.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\services\SaleServiceImpl.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\models\ResponseMessage.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\models\dtos\SaleDto.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\services\ClientService.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\models\dtos\ResponseDto.java
+d:\Develop\Projects\sales-management\src\main\java\com\draekk\salesmanagement\services\ClientServiceImpl.java
