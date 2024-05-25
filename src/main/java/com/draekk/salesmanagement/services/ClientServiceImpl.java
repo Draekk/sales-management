@@ -46,7 +46,7 @@ public class ClientServiceImpl implements ClientService {
     @Transactional(readOnly = true)
     public ResponseDto<List<ClientDto>> findClientsByNameContaining(Map<String, String> json) {
         try {
-            String name = json.get("name");
+            String name = json.get("name").toLowerCase().trim();
             ResponseDto<List<ClientDto>> response = new ResponseDto<>();
             response.setMessage(ResponseMessage.FOUND.getMessage());
             response.setStatus(HttpStatus.OK.value());
@@ -66,7 +66,7 @@ public class ClientServiceImpl implements ClientService {
     @Transactional(readOnly = true)
     public ResponseDto<List<ClientDto>> findClientsByRegionContaining(Map<String, String> json) {
         try {
-            String region = json.get("region");
+            String region = json.get("region").toLowerCase().trim();
             ResponseDto<List<ClientDto>> response = new ResponseDto<>();
             response.setMessage(ResponseMessage.FOUND.getMessage());
             response.setStatus(HttpStatus.OK.value());
@@ -98,7 +98,7 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public ResponseDto<ClientDto> createClient(Map<String, String> json) {
         try {
-            Client client = new Client(json.get("name"), json.get("region"));
+            Client client = new Client(json.get("name").toLowerCase().trim(), json.get("region").toLowerCase().trim());
             ResponseDto<ClientDto> response = new ResponseDto<>();
             response.setMessage(ResponseMessage.CREATED.getMessage());
             response.setStatus(HttpStatus.CREATED.value());
@@ -115,8 +115,8 @@ public class ClientServiceImpl implements ClientService {
     public ResponseDto<ClientDto> updateClient(Map<String, Object> json) {
         try {
             Long id = Long.parseLong(json.get("id").toString());
-            String name = json.get("name").toString();
-            String region = json.get("region").toString();
+            String name = json.get("name").toString().toLowerCase().trim();
+            String region = json.get("region").toString().toLowerCase().trim();
 
             Optional<Client> clientOptional = clientRepository.findById(id);
             if(clientOptional.isPresent()) {
