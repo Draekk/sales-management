@@ -114,7 +114,7 @@ public class ClientServiceImpl implements ClientService {
     @Transactional
     public ResponseDto<ClientDto> updateClient(Map<String, Object> json) {
         try {
-            Long id = Long.parseLong(json.get("id").toString());
+            Long id = Long.valueOf(json.get("id").toString());
             String name = json.get("name").toString().toLowerCase().trim();
             String region = json.get("region").toString().toLowerCase().trim();
 
@@ -133,7 +133,7 @@ public class ClientServiceImpl implements ClientService {
                 return new ResponseDto<>(ResponseMessage.NOT_FOUND.getMessage(), HttpStatus.NOT_FOUND.value());
             }
 
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return new ResponseDto<>(ResponseMessage.NOT_UPDATED.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
